@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "contentful": "^10.12.4",
-    "vue": "^3.4.29"
+    "contentful": "^10.12.10",
+    "contentful-rich-text-vue-renderer": "^3.1.0",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.29",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
