@@ -20,7 +20,7 @@
         <div id="articles-list">
         <RouterLink v-for="article in articlesStore.articleList" :to="article.uri">
             <article>
-                <img :src="article.thumbnail">
+                <img :src="article.thumbnailUrl">
                 <h3>{{ article.title }}</h3>
             </article>
         </RouterLink>

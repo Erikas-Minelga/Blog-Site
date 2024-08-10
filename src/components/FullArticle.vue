@@ -2,10 +2,11 @@
     import { useArticlesStore } from './globals/useArticlesStore';
     import RichTextRenderer from 'contentful-rich-text-vue-renderer';
     import { h } from 'vue';
-    import {BLOCKS, MARKS} from '@contentful/rich-text-types'
+    import {BLOCKS, MARKS} from '@contentful/rich-text-types';
+    import ImageContent from './ImageContent.vue';
 
     export default{
-        components: [RichTextRenderer],
+        components: [RichTextRenderer, ImageContent],
         data(){
             return{
                 articlesStore: useArticlesStore(),
@@ -21,7 +22,7 @@
             renderCustomBlocks()
             {
                 return{
-                    [BLOCKS.EMBEDDED_ASSET]: (node) => h('img', {src: node.data.target.fields.file.url}),
+                    [BLOCKS.EMBEDDED_ASSET]: (node) => h(ImageContent, {imageSrc: node.data.target.fields.file.url, imageAlt: node.data.target.fields.description, imageCredit: node.data.target.fields.title}),
                 };
             },
         },
@@ -32,8 +33,8 @@
     <RouterLink to="/" class="italic">Back to main page</RouterLink>
     <div>
         <h1>{{ matchedArticle.title }}</h1>
-        <img :src="matchedArticle.thumbnail">
-        <p class="italic">Published at: {{ matchedArticle.datePublished }}</p>
+        <p id="published-at" class="italic">Published at: {{ matchedArticle.datePublished }}</p>
+        <ImageContent :imageSrc="matchedArticle.thumbnailUrl" :imageAlt="matchedArticle.thumbnailDesc" :imageCredit="matchedArticle.thumbnailCredit"></ImageContent>
         <div class="inner">
             <RichTextRenderer :document="document" :nodeRenderers="renderCustomBlocks()"></RichTextRenderer>
         </div>
@@ -69,7 +70,8 @@
     }
 
     .inner {
-        padding: 50px 20vw 50px 20vw;
+        padding-left: clamp(5px, 5vw, 70px);
+        padding-right: clamp(5px, 5vw, 70px);
     }
 
     td, th{
@@ -80,10 +82,5 @@
     {
         font-weight: 900;
         background-color: #252525;
-    }
-
-    img{
-        height: clamp(350px,50vw,600px);
-        width: clamp(350px,50vw,600px);
     }
 </style>

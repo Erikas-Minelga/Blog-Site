@@ -19,11 +19,14 @@ export const useArticlesStore = defineStore('articles', {
 
             await client.getEntries().then(entries => {
                 entries.items.forEach(entry => {
+                    console.log(entry.fields.thumbnail.fields);
                     this.articleList.push(new Article(id++,entry.fields.articleTitle,
                     entry.fields.thumbnail.fields.file.url,
+                    entry.fields.thumbnail.fields.title,    //Image titles contain image credits
+                    entry.fields.thumbnail.fields.description,      //Will be used for alt tags, to improve accessibility
                     entry.fields.articleContent,
                     entry.metadata.tags,
-                    entry.sys.updatedAt));
+                    entry.sys.updatedAt.split("T")[0]));
                 });
                 this.loading = false;
             }).catch((error) => {

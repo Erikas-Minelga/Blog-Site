@@ -15,7 +15,12 @@
 <template>
     <h1 class="title">Erik's Blog</h1>
     <div v-if="articlesStore.loading">
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
         <p>Loading articles, please wait</p>
     </div>
     <RouterView v-else-if="!articlesStore.loading && articlesStore.articleList.length > 0"/>
@@ -29,7 +34,6 @@
     }
 
     .lds-ring {
-        /* change color here */
         color: #252525
     }
 
